@@ -37,7 +37,7 @@ class Song
     end
         
     def self.artist_count
-        # binding.pry
+        binding.pry
         artist_hash = Hash.new(0)
         @@artists.each { |element| artist_hash[element] += 1}
         artist_hash.each {|k, v|}
