@@ -1,47 +1,65 @@
-require 'pry'
+require "pry"
+
 class Song
+  attr_accessor :name, :artist, :genre
+  @@artists = []
+  @@genres = []
+  @@count = 0
 
-    attr_accessor :name, :artist, :genre
-    @@count = 0
-    @@genres = []
-    @@artists = []
-    
-    def initialize(name, artist, genre)
-        @name = name
-        @@count += 1
-        @artist = artist
-        @@artists << artist
-        @genre = genre
-        @@genres << genre
-    end
-    
-    def self.count
-        @@count
-    end
+  def initialize(name, artist, genre)
+    @name = name
+    @artist = artist
+    @genre = genre
+    @@count += 1
+    @@artists << artist
+    @@genres << genre
+  end
 
-    def self.artists
-        #return [] of artist's existing songs (uniq artists)
-        @@artists.uniq
-        # binding.pry
-    end
+  def self.count
+    @@count
+  end
 
-    def self.genres
-        #returns [] of all genres with no dups (.uniq)
-        @@genres.uniq
-    end
-    # binding.pry
-    def self.genre_count
-        genre_hash = Hash.new(0)
-        @@genres.each { |element| genre_hash[element] += 1 } 
-        genre_hash.each { |k, v| }
-    end
-        
-    def self.artist_count
-    #     binding.pry
-        artist_hash = Hash.new(0)
-        @@artists.each { |element| artist_hash[element] += 1 }
-        artist_hash.each { |k, v| }
-    end
+  def self.artists
+    @@artists.uniq
+  end
 
-    
+  def self.genres
+    @@genres.uniq
+  end
+
+  def self.genre_count
+    genre_hash = {}
+    @@genres.select do |genre|
+      if !genre_hash.has_key?(genre)
+        genre_hash[genre] = 1
+      else
+        genre_hash[genre] += 1
+      end
+    end
+    genre_hash
+  end
+
+  def self.artist_count
+    artist_hash = {}
+    @@artists.select do |artist|
+      if !artist_hash.has_key?(artist)
+        artist_hash[artist] = 1
+      else
+        artist_hash[artist] += 1
+      end
+    end
+    artist_hash
+  end
+
+  def self.helper_method
+    artist_hash = {}
+    @@artists.select do |artist|
+      if !artist_hash.has_key?(artist)
+        artist_hash[artist] = 1
+      else
+        artist_hash[artist] += 1
+      end
+    end
+    artist_hash
+  end
 end
